@@ -22,7 +22,6 @@ exports.signup = function(req,res) {
 		if(err) {
 			console.log(err);
 		}
-		
 		if(user){   
 			return res.redirect("/signin");
 		}else {
@@ -87,7 +86,8 @@ exports.signin = function(req, res) {
 //
 exports.logout = function(req, res) {
 	delete req.session.user;
-	//delete app.locals.user;
+	//delete app.locals.user;在routes中有改动，
+	//如果为空值，则将空值赋给本地user，就不用额外的本地删除。
 
 	res.redirect('/');
 };

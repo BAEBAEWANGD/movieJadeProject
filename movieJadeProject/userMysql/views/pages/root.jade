@@ -1,0 +1,52 @@
+extends ../index
+
+block content
+	.container
+		.row
+			.col-md-7
+				img(src='http://img2.imgtn.bdimg.com/it/u=1928814104,463039890&fm=11&gp=0.jpg' alt="song" title="Victoria")
+				.panel.panel-default
+					.panel-heading
+						h3 评论区
+					.panel-body
+						ul.media-list
+							each item in comments 
+								if user
+									li.media
+										.pull-left
+											a.comment(data-tid="#{item.id}", data-toname="#{item.username}",data-who="#{user.username}", href="#comments")
+												img.media-object(style="width:64px;height:64px")
+										.media-body
+											h4.media-heading #{item.username}
+											p #{item.content}
+											if item.toname && user
+												.media
+													.pull-left
+														a.comment(id="#{item.toname}", href="#comments")
+															img.media-object(style="width:64px;height:64px")
+													.media-body
+														h4.media-heading
+																| #{item.who}
+																span.text-info &nbsp;回复&nbsp;
+																| #{item.toname}:
+															p #{item.reply}
+										hr 
+						#comments
+							form#commentForm(method="POST", action="/user/comment")
+								input(type="hidden", name="comment[toname]", value="")
+								input(type="hidden", name="comment[tid]", value="")
+								input(type="hidden", name="comment[who]", value="")
+								.form-group
+									textarea.form-control(name="comment[content]", row="3")
+								if user
+									button.btn.btn-primary(type='submit') 提交
+								else
+									a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal") 登录后才可评论～～～～
+											
+			.col-md-5
+				h1 This is so cool....
+				small Victoria~~~~
+				h3 She is my like...
+				span 演员简介:&nbsp;&nbsp;宋茜（Victoria），1987年2月2日出生于山东省青岛市，中国内地女演员、歌手，亚洲多栖发展女艺人。2008年，宋茜作为演员、广告模特在亚洲地区正式开始演艺活动。2009年，担任女子流行演唱组合f(x)队长，以歌手身份正式出道。
+
+	script(src="/js/root.js")

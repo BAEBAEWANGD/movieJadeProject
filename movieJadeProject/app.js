@@ -34,9 +34,8 @@ if('development' === app.get('env')){
 	app.locals.pretty = true;
 	mongoose.set('debug', true);
 }
+app.locals.moment = require('moment');
 
 require('./config/routes.js')(app);
-
-app.locals.moment = require('moment');
 app.listen(port);
 console.log('project started on port ' + port);
